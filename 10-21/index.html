@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" ng-app="test">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+    <script src="angular.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+    <!--<div>{{'abcde'|uppercase}}</div>-->
+    <ul ng-init="r=true" ng-click="r=!r">
+        <!--<li ng-repeat="v in arr|myfilter">{{v}}</li>-->
+        <li ng-repeat="v in arr|reverse:r">{{v}}</li>
+    </ul>
+<script>
+    var test=angular.module('test',[]);
+    test.filter('myuppercase',[function($scope){
+        return function(data){
+            return data.toUpperCase();
+        }
+    }])
+//    test.filter('myfilter',[function($scope){
+//        return function(arr){
+//            var newarr=arr.filter(function(v,i){
+//                return v>=3;
+//            })
+//            return newarr;
+//        }
+//    }])
+//    test.filter('myfilter',[function($scope){
+//        return function(arr){
+//            var newarr=[];
+//            arr.sort(function(a,b){
+//                return a-b<0;
+//            })
+//            return newarr=arr;
+//        }
+//    }])
+    test.filter('reverse',[function($scope){
+        return function(arr,boolean){
+            var newarr=arr.sort(function(a,b){
+                if(boolean){
+                    return a-b<0;
+                }else{
+                    return a-b>0;
+                }
+            })
+            return newarr
+        }
+    }])
+    test.controller('mainCtrl',['$scope',function($scope){
+        $scope.arr=[1,2,3,4,5];
+    }])
+</script>
+</body>
+</html>

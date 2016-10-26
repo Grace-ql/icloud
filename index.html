@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" ng-app="reminder">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body ng-controller="mainCtrl">
+  <div class="left">
+
+        <div class="top" style="">
+            <span class="logo"></span>
+            <span class="mingcheng">提醒事项</span>
+            <span class="xiala"></span>
+            <div class="add" ng-click="addcates()"></div>
+        </div>
+        <div class="top-close">
+            <div class="clock"></div>
+            <span class="plan">已计划</span>
+        </div>
+      <div ng-color-ul>
+          <li data-id="{{cate.id}}" ng-repeat="cate in cates" ng-click="setcurrent(cate)">
+              <div class="yuandian {{cate.theme}}"></div>
+              <span class="sub-content">{{cate.title}}</span>
+              <input type="text"  ng-model="cate.title" value="{{cate.title}}">
+              <div class="wife"></div>
+          </li>
+      </div>
+      <!--<ul>-->
+        <!--<color-cot ng-repeat="cate in cates"></color-cot>-->
+   <!--</ul>-->
+</div>
+<div class="right">
+  <div class="search">
+      <div class="search-btn"></div>
+      <input type="text" placeholder="搜索所有提醒">
+      <span class="font">雷博</span>
+      <div class="drop-menu"></div>
+      <div class="wen">
+          <div class="no"></div>
+      </div>
+  </div>
+    <div class="box">
+    <div class="sub-event">
+        <div class="tixing">
+            <span class="da-title {{current.fontcolor}}" >{{current.title}}</span>
+            <div class="option {{current.fontcolor}}">选项</div>
+        </div>
+        <div class="total" ng-init="cc=false;dd=false;">
+          <div class="jiantou" ng-click="cc=!cc;dd=!dd" ng-class="{hezhu:dd}"></div>
+          <span class="cot  {{current.fontcolor}}">已完成: <span {{current.fontcolor}}>2项</span></span>
+          <div class="del-all {{current.fontcolor}}">清除已完成事项</div>
+        </div>
+        <div class="date">
+            <span style="color:#ccc">2016年10月18日 星期二</span>
+        </div>
+        <ul class="message" ng-class="{show:cc}">
+            <li ng-repeat="v in current.todos| filter:{state:1}">
+                <div class="tubiao {{current.yuanleft}}" ng-click="v.state=0;"></div>
+                <span class="sub-message">
+                    <div ng-click="delete(v.id)" class="del {{current.fontcolor}}">删除</div>
+                    <input ng-model="v.title" value="{{v.title}}" class="{{current.fontcolor}}">{{v.title}}</input>
+                </span>
+            </li>
+        </ul>
+        <div class="total" ng-init="ee=false;ff=false;" >
+            <div class="jiantou1" ng-click="ee=!ee;ff=!ff" ng-class="{hezhu:ff}"></div>
+            <span class="cot  {{current.fontcolor}}">未完成: <span {{current.fontcolor}}>2项</span></span>
+            <div class="del-all {{current.fontcolor}}">清除未完成事项</div>
+        </div>
+        <ul class="sub-mes" ng-class="{show:ee}">
+            <li class="{{current.bor}}" ng-repeat="v in current.todos| filter:{state:0}">
+                <div class="tubiao {{current.quanleft}}" ng-click="v.state=1;"></div>
+                <span class="sub-message">
+                    <input class="input-bg {{current.fontcolor}}" value="{{v.title}}">{{v.title}}</input>
+                    <div ng-click="delete(v.id)" class="del {{current.fontcolor}}">删除</div>
+
+                </span>
+            </li>
+            <li>
+                <span class="sub-message"><input ng-model="item" ng-keyup="addtodo($event)" class="{{current.fontcolor}}" placeholder="新项目..." ></span>
+            </li>
+        </ul>
+    </div>
+    </div>
+</div>
+<div class="option-yin">
+   <div class="yin-box">
+      <div class="yin-title">
+          <span class="{{current.fontcolor}}">{{current.title}}<input type="text" class="{{fontcolor}}"></span>
+      </div>
+       <div class="list-color">列表颜色</div>
+       <my-option>
+           <div  ng-repeat="v in colors">
+               <div class="dange {{v.theme}}" ng-click="aa($index)"></div>
+           </div>
+       </my-option>
+       <div class="btn">
+       <span class="del" ng-click="shanchu(current.id)">删除</span>
+       <span class="quxiao">取消</span>
+       <span class="finish">完成</span>
+       <div class="sanjiaoxing"></div>
+       </div>
+   </div>
+</div>
+</body>
+</html>
